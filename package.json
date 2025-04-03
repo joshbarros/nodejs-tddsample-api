@@ -6,8 +6,10 @@
     "dev": "nodemon src/app.ts",
     "build": "tsc",
     "test": "jest",
-    "lint": "eslint ./src ./tests --ext .ts",
-    "prepare": "husky"
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
+    "lint": "eslint ./src ./tests --ext .ts"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
@@ -17,13 +19,23 @@
       "prettier --write"
     ]
   },
+  "jest-junit": {
+    "outputDirectory": "test-results",
+    "outputName": "junit.xml",
+    "classNameTemplate": "{filepath}",
+    "titleTemplate": "{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "chalk": "^4.1.2",
+    "express": "^5.1.0",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -38,6 +50,7 @@
     "eslint-plugin-prettier": "^5.2.6",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
+    "jest-junit": "^16.0.0",
     "lint-staged": "^15.5.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",

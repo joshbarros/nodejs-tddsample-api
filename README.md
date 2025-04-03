@@ -1,4 +1,4 @@
-# Mars Rover TDD API
+# Mars Rover API
 
 This is a Node.js API for controlling a Mars Rover, built using Test-Driven Development (TDD) principles with TypeScript and a clean architecture approach.
 
@@ -54,7 +54,9 @@ If an obstacle is encountered, the response includes the obstacle flag:
 }
 ```
 
-## Setup
+## Setup and Running
+
+### Local Development
 
 ```bash
 # Install dependencies
@@ -65,14 +67,34 @@ npm test
 
 # Start development server
 npm run dev
-
-# Build for production
-npm run build
 ```
+
+### Using Docker
+
+```bash
+# Build and start production container
+docker compose up mars-rover-api
+
+# Start development container with hot reloading
+docker compose up dev
+
+# Run tests
+docker compose run test
+```
+
+### Running in CI/CD
+
+The project includes GitHub Actions workflows for continuous integration. Every push to the main branch or pull request will:
+
+1. Run linting checks
+2. Run the test suite
+3. Build the Docker container
 
 ## Technologies
 
 - TypeScript
 - Express.js
 - Jest for testing
-- ESLint + Prettier for code quality
+- Winston for logging
+- Docker for containerization
+- GitHub Actions for CI/CD

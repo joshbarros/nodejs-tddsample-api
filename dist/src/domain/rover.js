@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rover = void 0;
 const direction_1 = require("./direction");
+const logger_1 = __importDefault(require("../utils/logger"));
 /**
  * Represents a rover that can move around on a grid
  */
@@ -17,30 +21,60 @@ class Rover {
      * @param commands String of commands (e.g., "RMMLM")
      */
     execute(commands) {
+        if (!commands) {
+            logger_1.default.warn('Empty commands string received');
+            return;
+        }
+        logger_1.default.debug(`Executing commands: ${commands}`);
         this.encounteredObstacle = false;
         for (const command of commands) {
             if (this.encounteredObstacle) {
                 break;
             }
-            this.executeCommand(command);
+            try {
+                this.executeCommand(command);
+            }
+            catch (error) {
+                logger_1.default.error(`Failed to execute command '${command}'`, error);
+                throw error;
+            }
         }
+        logger_1.default.debug(`Final position: ${this.getPositionString()}`);
     }
     /**
      * Execute a single command
      */
     executeCommand(command) {
+        // Helper function to get direction name safely
+        const getDirectionDisplay = (dir) => {
+            switch (dir) {
+                case direction_1.Direction.NORTH: return 'NORTH';
+                case direction_1.Direction.EAST: return 'EAST';
+                case direction_1.Direction.SOUTH: return 'SOUTH';
+                case direction_1.Direction.WEST: return 'WEST';
+                default: return `Unknown(${dir})`;
+            }
+        };
         switch (command) {
             case 'R':
                 this.turnRight();
+                logger_1.default.debug(`Turned right, now facing ${getDirectionDisplay(this.position.direction)}`);
                 break;
             case 'L':
                 this.turnLeft();
+                logger_1.default.debug(`Turned left, now facing ${getDirectionDisplay(this.position.direction)}`);
                 break;
             case 'M':
                 this.moveForward();
+                logger_1.default.debug(`Moved forward to (${this.position.x}, ${this.position.y})`);
                 break;
-            default:
-                throw new Error(`Unknown command: ${command}`);
+            default: {
+                // Using block scope to allow the error declaration
+                const errorMsg = `Unknown command: ${command}`;
+                const error = new Error(errorMsg);
+                logger_1.default.error(`Invalid command received: '${command}'`, { validCommands: ['R', 'L', 'M'] });
+                throw error;
+            }
         }
     }
     /**
@@ -61,25 +95,24 @@ class Rover {
      * Move the rover forward in the direction it's facing
      */
     moveForward() {
-        let newX = this.position.x;
-        let newY = this.position.y;
+        const { x, y, direction } = this.position;
+        let newX = x;
+        let newY = y;
         // Calculate new position based on direction
-        switch (this.position.direction) {
+        switch (direction) {
             case direction_1.Direction.NORTH:
-                newY = (newY + 1);
+                newY = (y + 1) % this.grid.height;
                 break;
             case direction_1.Direction.EAST:
-                newX = (newX + 1);
+                newX = (x + 1) % this.grid.width;
                 break;
             case direction_1.Direction.SOUTH:
-                newY = (newY - 1);
+                newY = (y - 1 + this.grid.height) % this.grid.height;
                 break;
             case direction_1.Direction.WEST:
-                newX = (newX - 1);
+                newX = (x - 1 + this.grid.width) % this.grid.width;
                 break;
         }
-        // Normalize coordinates (wrap around the grid)
-        [newX, newY] = this.grid.normalizeCoordinates(newX, newY);
         // Check for obstacles
         if (this.grid.hasObstacle(newX, newY)) {
             this.encounteredObstacle = true;
@@ -100,10 +133,11 @@ class Rover {
      * Get the position as a string (e.g., "2:1:E")
      */
     getPositionString() {
+        const { x, y, direction } = this.position;
         if (this.encounteredObstacle) {
-            return `${this.lastValidPosition.toString()}:O`;
+            return `${this.lastValidPosition.x}:${this.lastValidPosition.y}:${this.lastValidPosition.direction}:O`;
         }
-        return this.position.toString();
+        return `${x}:${y}:${direction}`;
     }
     /**
      * Check if the rover encountered an obstacle

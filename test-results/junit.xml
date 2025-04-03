@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="44" failures="0" errors="0" time="32.383">
+  <testsuite name="tests/domain/direction.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:38:48" time="26.478" tests="8">
+    <testcase classname="tests/domain/direction.test.ts" name="Then NORTH should turn to EAST" time="0.017">
+    </testcase>
+    <testcase classname="tests/domain/direction.test.ts" name="Then EAST should turn to SOUTH" time="0.001">
+    </testcase>
+    <testcase classname="tests/domain/direction.test.ts" name="Then SOUTH should turn to WEST" time="0.001">
+    </testcase>
+    <testcase classname="tests/domain/direction.test.ts" name="Then WEST should turn to NORTH" time="0.001">
+    </testcase>
+    <testcase classname="tests/domain/direction.test.ts" name="Then NORTH should turn to WEST" time="0.002">
+    </testcase>
+    <testcase classname="tests/domain/direction.test.ts" name="Then WEST should turn to SOUTH" time="0.001">
+    </testcase>
+    <testcase classname="tests/domain/direction.test.ts" name="Then SOUTH should turn to EAST" time="0.001">
+    </testcase>
+    <testcase classname="tests/domain/direction.test.ts" name="Then EAST should turn to NORTH" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/domain/grid.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:38:48" time="27.477" tests="9">
+    <testcase classname="tests/domain/grid.test.ts" name="Then (3,5) should have an obstacle" time="0.055">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (7,8) should have an obstacle" time="0.002">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (0,0) should not have an obstacle" time="0.002">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (1,2) should have an obstacle" time="0.001">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (5,5) should remain (5,5)" time="0.011">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (10,10) should wrap to (0,0)" time="0.002">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (15,18) should wrap to (5,8)" time="0.005">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (-1,-1) should wrap to (9,9)" time="0.003">
+    </testcase>
+    <testcase classname="tests/domain/grid.test.ts" name="Then (-10,-15) should wrap to (0,5)" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/domain/user/User.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:38:48" time="27.587" tests="7">
+    <testcase classname="tests/domain/user/User.test.ts" name="Then it should have the provided name" time="0.051">
+    </testcase>
+    <testcase classname="tests/domain/user/User.test.ts" name="Then it should have the provided email" time="0.002">
+    </testcase>
+    <testcase classname="tests/domain/user/User.test.ts" name="Then it should generate an id" time="0.004">
+    </testcase>
+    <testcase classname="tests/domain/user/User.test.ts" name="Then it should set a creation date" time="0.002">
+    </testcase>
+    <testcase classname="tests/domain/user/User.test.ts" name="Then it should properly convert to JSON" time="0.003">
+    </testcase>
+    <testcase classname="tests/domain/user/User.test.ts" name="Then it should use the provided id" time="0.004">
+    </testcase>
+    <testcase classname="tests/domain/user/User.test.ts" name="Then it should use the provided creation date" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/domain/position.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:38:48" time="27.603" tests="4">
+    <testcase classname="tests/domain/position.test.ts" name="Then toString should return &quot;2:3:N&quot;" time="0.051">
+    </testcase>
+    <testcase classname="tests/domain/position.test.ts" name="Then the copy should have the same values" time="0.003">
+    </testcase>
+    <testcase classname="tests/domain/position.test.ts" name="Then the copy should be a different object" time="0.002">
+    </testcase>
+    <testcase classname="tests/domain/position.test.ts" name="Then the copy should remain unchanged" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/domain/rover.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:38:48" time="28.673" tests="8">
+    <testcase classname="tests/domain/rover.test.ts" name="Then position should be (0,0,E)" time="0.056">
+    </testcase>
+    <testcase classname="tests/domain/rover.test.ts" name="Then position should be (0,0,W)" time="0.005">
+    </testcase>
+    <testcase classname="tests/domain/rover.test.ts" name="Then position should be (0,1,N)" time="0.003">
+    </testcase>
+    <testcase classname="tests/domain/rover.test.ts" name="Then position should be (2,1,N)" time="0.005">
+    </testcase>
+    <testcase classname="tests/domain/rover.test.ts" name="Then should wrap around to the bottom" time="0.005">
+    </testcase>
+    <testcase classname="tests/domain/rover.test.ts" name="Then should wrap around to the west edge" time="0.106">
+    </testcase>
+    <testcase classname="tests/domain/rover.test.ts" name="Then should stop at last valid position and report obstacle" time="0.008">
+    </testcase>
+    <testcase classname="tests/domain/rover.test.ts" name="Then should indicate an obstacle was encountered" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/application/roverService.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:38:48" time="28.679" tests="3">
+    <testcase classname="tests/application/roverService.test.ts" name="Then should return the final position string &quot;2:1:N&quot;" time="0.041">
+    </testcase>
+    <testcase classname="tests/application/roverService.test.ts" name="Then should wrap around to &quot;0:0:N&quot;" time="0.015">
+    </testcase>
+    <testcase classname="tests/application/roverService.test.ts" name="Then should throw an error for unknown command &quot;X&quot;" time="0.151">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/app.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:39:16" time="1.65" tests="1">
+    <testcase classname="tests/app.test.ts" name="should create an Express app" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/interfaces/roverController.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:38:48" time="30.009" tests="3">
+    <testcase classname="tests/interfaces/roverController.test.ts" name="Then should return 200 with the position" time="0.123">
+    </testcase>
+    <testcase classname="tests/interfaces/roverController.test.ts" name="Then should return 400 Bad Request" time="0.039">
+    </testcase>
+    <testcase classname="tests/interfaces/roverController.test.ts" name="Then should return 500 with an error message" time="0.015">
+    </testcase>
+  </testsuite>
+  <testsuite name="tests/e2e/rover.e2e.test.ts" errors="0" failures="0" skipped="0" timestamp="2025-04-03T12:39:14" time="3.64" tests="1">
+    <testcase classname="tests/e2e/rover.e2e.test.ts" name="should execute rover commands and return final position" time="0.047">
+    </testcase>
+  </testsuite>
+</testsuites>
