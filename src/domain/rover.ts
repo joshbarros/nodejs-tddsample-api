@@ -64,6 +64,17 @@ export class Rover {
       }
     };
 
+    // Check if command is valid
+    const validCommands = ['R', 'L', 'M'];
+    if (!validCommands.includes(command)) {
+      logger.warn(`Invalid command received and ignored: '${command}'`, {
+        validCommands,
+        command
+      });
+      return; // Skip invalid commands instead of throwing error
+    }
+
+    // Process valid commands
     switch (command) {
       case 'R':
         this.turnRight();
@@ -77,13 +88,6 @@ export class Rover {
         this.moveForward();
         logger.debug(`Moved forward to (${this.position.x}, ${this.position.y})`);
         break;
-      default: {
-        // Using block scope to allow the error declaration
-        const errorMsg = `Unknown command: ${command}`;
-        const error = new Error(errorMsg);
-        logger.error(`Invalid command received: '${command}'`, { validCommands: ['R', 'L', 'M'] });
-        throw error;
-      }
     }
   }
 

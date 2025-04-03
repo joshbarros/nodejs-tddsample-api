@@ -11,6 +11,17 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 // Middleware
 app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
+// Add debug logging for requests in development mode
+if (process.env.NODE_ENV === 'development') {
+    app.use((req, res, next) => {
+        logger_1.default.debug(`${req.method} ${req.url}`, {
+            body: req.body,
+            headers: req.headers
+        });
+        next();
+    });
+}
 // Routes
 app.use('/api/rover', roverController_1.default);
 // Root endpoint

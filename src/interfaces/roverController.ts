@@ -16,18 +16,36 @@ router.post('/execute', ((req: Request, res: Response) => {
 
   const { commands } = req.body;
 
-  if (!commands || typeof commands !== 'string') {
-    logger.warn('Invalid request received', { commands });
+  // Handle null, undefined, or non-string values for commands
+  if (commands === undefined || commands === null) {
+    logger.warn('Commands parameter is missing or null', { body: req.body });
     return res.status(400).json({
-      error: 'Invalid request. Commands must be a string.'
+      error: 'Invalid request. Commands parameter is required.'
     });
   }
 
-  logger.info(`Executing rover commands: ${commands}`);
+  // Convert commands to string if it's a number or other type
+  let commandsStr: string;
+  if (typeof commands !== 'string') {
+    logger.warn(`Commands parameter is not a string, received: ${typeof commands}`, { commands });
+    commandsStr = String(commands);
+    logger.info(`Converted commands to string: ${commandsStr}`);
+  } else {
+    commandsStr = commands;
+  }
 
-  executeRoverCommands(commands)
+  if (commandsStr.trim() === '') {
+    logger.warn('Empty commands string received');
+    return res.status(400).json({
+      error: 'Invalid request. Commands must not be empty.'
+    });
+  }
+
+  logger.info(`Executing rover commands: ${commandsStr}`);
+
+  executeRoverCommands(commandsStr)
     .then((result: string) => {
-      logger.info(`Command execution successful: ${commands} → ${result}`);
+      logger.info(`Command execution successful: ${commandsStr} → ${result}`);
       return res.status(200).json({ position: result });
     })
     .catch((error: Error) => {
