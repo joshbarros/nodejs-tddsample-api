@@ -1,16 +1,19 @@
 import express from 'express';
-
-// Simple function for testing
-export function sum(a: number, b: number) {
-  return a + b;
-}
+import roverRoutes from './interfaces/roverController';
 
 // Create Express server
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware
+app.use(express.json());
+
+// Routes
+app.use('/api/rover', roverRoutes);
+
+// Root endpoint
 app.get('/', (req, res) => {
-  res.json({ message: 'TDD Sample API is running!' });
+  res.json({ message: 'Mars Rover API is running!' });
 });
 
 // Start server if this file is run directly

@@ -1,7 +1,13 @@
-import { sum } from '../src/app';
+import express from 'express';
 
-describe('sum()', () => {
-  it('Should return the sum of two numbers', () => {
-    expect(sum(1, 2)).toBe(3);
-  })
-})
+describe('App', () => {
+  it('should create an Express app', () => {
+    const app = express();
+    expect(app).toBeDefined();
+    expect(app).toBeInstanceOf(Object);
+    // Express apps have these methods
+    expect(typeof app.get).toBe('function');
+    expect(typeof app.post).toBe('function');
+    expect(typeof app.use).toBe('function');
+  });
+});

@@ -5,9 +5,13 @@ import tseslint from "typescript-eslint";
 
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts}"] },
   {
     files: ["**/*.{js,mjs,cjs,ts}"],
+    ignores: ["dist/**"]
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,ts}"],
+    ignores: ["dist/**"],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -16,6 +20,11 @@ export default defineConfig([
       }
     }
   },
-  { files: ["**/*.{js,mjs,cjs,ts}"], plugins: { js }, extends: ["js/recommended"] },
+  {
+    files: ["**/*.{js,mjs,cjs,ts}"],
+    ignores: ["dist/**"],
+    plugins: { js },
+    extends: ["js/recommended"]
+  },
   tseslint.configs.recommended,
 ]);
